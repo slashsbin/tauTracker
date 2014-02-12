@@ -1,0 +1,19 @@
+&tau;racker
+===========
+`/sBin/tauTracker v0.1`
+
+Overview
+--------
+Simple Time Tracking
+
+Requirements
+------------
+* Bash
+
+Usage
+-----
+TODO
+
+License
+-------
+tauTracker is licensed under the [MIT License](http://slashsbin.mit-license.org/).
