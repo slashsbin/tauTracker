@@ -16,4 +16,4 @@ TODO
 
 License
 -------
-tauTracker is licensed under the [MIT License](http://slashsbin.mit-license.org/).
+tauTracker is licensed under the http://slashsbin.mit-license.org/[MIT License].
