@@ -1,26 +1,12 @@
 #!/bin/bash
 
-# Document:           shivehRollCallParser
-#
-# Description:        Parser for shivehRollCall Logs
-#
-# Revision:           $Rev: 1285 $
-#
-# Last Changed by:    $Author: mohammad@shiveh.local $
-#
-# Last Changed Date:  $Date: 2011-08-07 16:18:39 +0430 (Sun, 07 Aug 2011) $
-#
-# @author             /sBin <shokri.md at gmail.com>
-# @version            0.1
-# @uses               NONE
-
 rollDetail=off
 logFile=shivehRollCall.log
 
-usage="SHIVEH RollCall Parser\n\n
+usage="RollCall Parser\n\n
 Usage:\n\t"$0" -f rollCall.log -d\n
 \nOptions:\n
-\t-f,--file\tRollCall Log File[Default: ~/shivehRollCall.log]\n
+\t-f,--file\tRollCall Log File[Default: ~/rollCall.log]\n
 \t-d,--detail\tShow Detail\n
 \t-h,--help\tPrints this Message & Exits\n"
 
