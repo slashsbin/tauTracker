@@ -37,7 +37,7 @@ function appUsage
 
 		Options:
 			-t|--tag		Tracking Tag, Case-InSensitive[Default: ScriptName]
-			-f|--flow		Coma-Separated List of Tracking Time-Flows[Default: ScriptName~ScriptName][Case-InSensitive]
+			-f|--flow		Coma-Separated List of Tracking Time-Flows, Case-InSensitive[Default: ScriptName~ScriptName]
 			-F|--file		Tracker Log File[Default: ./tauTracker.log]
 			
 
@@ -176,34 +176,51 @@ function parse
 				break
 			fi
 		done
+		# UnMatched Flow
+		if [[ $__locFound -eq 0 ]]
+		then
+				echo "UnMatched Flow, Ignoring..." && echo
+				continue
+		fi
 
 		# FlowTo Tags
-		if [[ $__locFound -eq 1 ]]
+		if [[ $__locFound -eq 1 ]] && [[ ! -z "${__prev[$__fK]}" ]]
 		then
 			[ $verbose -gt 1 ] && echo "Flow from $__fK To $__fV Ended @$__pDate"
-			if [[ -z "${__prev[$__fK]}" ]]
-			then
-				[ $verbose -gt 1 ] && echo "Ignoring..."
-			else
+			#if [[ -z "${__prev[$__fK]}" ]]
+			#then
+			#	[ $verbose -gt 1 ] && echo "Ignoring..."
+			#else
 				__t=$(( $(date -d"$__pDate" +%s) - $(date -d"${__prev[$__fK]}" +%s) ))
 				echo "Due:$__t Seconds"
 				__total[$__fK]=$((${__total[$__fK]} + $__t))
 				__prev[$__fK]=""
-			fi
+			#fi
 		# FlowFrom Tags
-		elif [[ $__locFound -eq 2 ]]
+		elif [[ $__locFound -eq 2 ]] || [[ -z "${__prev[$__fK]}" ]]
 		then
+			[[ ! -z "$__prev[$__fK]" ]] && [ $verbose -gt 1 ] && echo "OverWrite Previous Start Event:"
 			[ $verbose -gt 1 ] && echo "Flow from $__fK To $__fV Started @$__pDate"
 			__prev[$__fK]=$__pDate
-		# UnMatched Tags
-		else
-			echo "UnMatched Flow, Ignoring ..."
 		fi
 		echo
 	done < $tauTrackerLog
+	echo "Finished" && echo
 
 	# Summary
-#echo "$(( $total/60 )) Min"
+	echo "Summary"
+	for __sK in ${!flows[@]}
+	do
+		# Seconds
+		__sS=${__total[$__sK]}
+		# Minutes
+		__sM=$(( $__sS / 60 ))
+		# Hours
+		__sH=$(( $__sM / 60 ))
+		# Days
+		__sD=$(( $__sH / 24 ))
+		echo -e "Flow $__sK ~ ${flows[$__sK]}: \t$__sS Seconds | $__sM Minutes | $__sH Hours | $__sD Days"
+	done
 
 }
 
