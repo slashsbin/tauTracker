@@ -179,7 +179,7 @@ function parse
 		# UnMatched Flow
 		if [[ $__locFound -eq 0 ]]
 		then
-				echo "UnMatched Flow, Ignoring..." && echo
+				[ $verbose -gt 1 ] && echo "UnMatched Flow, Ignoring..." && echo
 				continue
 		fi
 
@@ -192,7 +192,7 @@ function parse
 			#	[ $verbose -gt 1 ] && echo "Ignoring..."
 			#else
 				__t=$(( $(date -d"$__pDate" +%s) - $(date -d"${__prev[$__fK]}" +%s) ))
-				echo "Due:$__t Seconds"
+				[ $verbose -gt 1 ] && echo "Due:$__t Seconds"
 				__total[$__fK]=$((${__total[$__fK]} + $__t))
 				__prev[$__fK]=""
 			#fi
@@ -203,7 +203,7 @@ function parse
 			[ $verbose -gt 1 ] && echo "Flow from $__fK To $__fV Started @$__pDate"
 			__prev[$__fK]=$__pDate
 		fi
-		echo
+		[ $verbose -gt 1 ] && echo
 	done < $tauTrackerLog
 	echo "Finished" && echo
 

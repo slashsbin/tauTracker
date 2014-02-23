@@ -4,15 +4,40 @@
 
 Overview
 --------
-Simple Time Tracking
+Simple Tag-based Time Tracking
 
 Requirements
 ------------
-* Bash
+* Bash 4.0+
 
 Usage
 -----
-TODO
+
+### Tracking Time
+Simply Track time by running `tauTracker`
+By Default tauTracker is Configured to track current time to `./tauTracker.log` Log file
+with tag `TAUTRACKER` which is the script name.
+
+Custom tagging can be applied either via `--tag` Option or Simply creating
+a Symbolic-Link to tauTracker Script like: `ln -s tauTracker startMyWork` and `ln -s tauTracker endMyWork`
+
+### Parsing Tracked Times
+Parsing Tracked Times can be achieced by running: `tauTracker parse`.
+It will parse `tauTracker.log` file and displays a Summary of Times.
+
+To Parse Custom Tags give previously Tracked Tags(Time-Flows) via `--flow` Option like:
+`tauTracker parse --flow startMyWork~endMyWork`
+This will parse `tauTracker.log` file for Time-Flows Tagged From `startMyWork` To `endMyWork`
+
+### Customization
+tauTracker looks for config files in these Paths in the order specified here:
+1. `/etc/tauTracker/tauTracker.config`
+2. `~/.tauTracker.config`
+3. `./.tauTracker.config`
+
+To See Current Final Config Values run: `tauTracker --list-config`
+
+Also See Built-In Usage Message for list of Available Options and their Default Value: `tauTracker --help`
 
 License
 -------
