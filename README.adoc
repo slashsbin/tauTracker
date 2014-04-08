@@ -31,9 +31,10 @@ This will parse `tauTracker.log` file for Time-Flows Tagged From `startMyWork` T
 
 ### Customization
 tauTracker looks for config files in these Paths in the order specified here:
-1. `/etc/tauTracker/tauTracker.config`
-2. `~/.tauTracker.config`
-3. `./.tauTracker.config`
+
+. `/etc/tauTracker/tauTracker.config`
+. `~/.tauTracker.config`
+. `./.tauTracker.config`
 
 To See Current Final Config Values run: `tauTracker --list-config`
 
